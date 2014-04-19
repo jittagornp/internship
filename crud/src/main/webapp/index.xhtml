@@ -13,6 +13,8 @@
         </style>
     </h:head>
     <h:body>
+        <p:growl id="notification" showDetail="true" showSummary="true"/>
+        
         <h:form id="userForm">
             <p:commandButton value="add User"
                              update=":addUserDialogForm"
@@ -78,9 +80,10 @@
                 <br/>
                 <br/>
                 <p:commandButton value="save"
-                                 update=":userForm"
+                                 update=":userForm, :notification"
                                  actionListener="#{userController.onSave()}"
                                  oncomplete="addWidgetDialog.hide();"/>
+                <p:spacer width="10"/>
                 <p:commandButton value="cancel"
                                  type="button"
                                  onclick="addWidgetDialog.hide();"/>
@@ -109,15 +112,14 @@
                 <br/>
                 <br/>
                 <p:commandButton value="save"
-                                 update=":userForm"
-
+                                 update=":userForm, :notification"
                                  oncomplete="editWidgetDialog.hide();"/>
+                <p:spacer width="10"/>
                 <p:commandButton value="cancel"
                                  type="button"
                                  onclick="editWidgetDialog.hide();"/>
             </h:form>
         </p:dialog>
-
 
 
         <p:dialog id="deleteUserDialog"
@@ -128,16 +130,14 @@
                   resizable="false"
                   widgetVar="deleteWidgetDialog"> 
             <h:form id="deleteUserDialogForm">
-                <h:panelGrid columns="2">
-                    <h:outputText value="name"/>
-                    <h:outputText value="#{userController.user.name}"/>
-                </h:panelGrid>
+                <h:outputText value="#{userController.user.name}"/>
                 <br/>
                 <br/>
                 <p:commandButton value="delete"
-                                 update=":userForm"
+                                 update=":userForm, :notification"
                                  actionListener="#{userController.onDelete()}"
                                  oncomplete="deleteWidgetDialog.hide();"/>
+                <p:spacer width="10"/>
                 <p:commandButton value="cancel"
                                  type="button"
                                  onclick="deleteWidgetDialog.hide();"/>

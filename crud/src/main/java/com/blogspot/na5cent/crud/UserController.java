@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -62,20 +63,33 @@ public class UserController implements Serializable {
     public void onSave() {
         user.setId(this.getUsers().size() + 1);
         this.getUsers().add(user);
+
+        showMessage("save user", "success");
     }
 
     public void onSelectUser() {
-        String userId = FacesContext.getCurrentInstance()
-                .getExternalContext()
-                .getRequestParameterMap()
-                .get("userId");
+        String userId = requestParam("userId");
 
         Integer id = Integer.valueOf(userId);
         int indexOf = this.getUsers().indexOf(new User(id));
         user = this.getUsers().get(indexOf);
     }
-    
-    public void onDelete(){
+
+    public void onDelete() {
         this.getUsers().remove(user);
+
+        showMessage("delete user", "success");
+    }
+
+    private String requestParam(String paramName) {
+        return FacesContext.getCurrentInstance()
+                .getExternalContext()
+                .getRequestParameterMap()
+                .get(paramName);
+    }
+
+    private void showMessage(String title, String body) {
+        FacesContext.getCurrentInstance()
+                .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, title, body));
     }
 }
