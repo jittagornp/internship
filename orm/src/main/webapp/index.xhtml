@@ -1,0 +1,158 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <style type="text/css">
+            body{
+                font-size: 10pt;
+            }
+        </style>
+
+
+        <script type="text/javascript" src="PrimefacesDialog.js">
+        </script>
+        <script type="text/javascript">
+            PrimefacesDialog.on('show', function(){
+                
+            });
+        </script>
+    </h:head>
+    <h:body>
+        <p:growl id="notification" showDetail="true" showSummary="true"/>
+
+        <h:form id="userForm">
+            #{userController.reset()}
+            <p:commandButton value="add User"
+                             update=":addUserDialogForm"
+                             actionListener="#{userController.onCreateUser()}"
+                             onsuccess="addWidgetDialog.show();"/>
+            <br/>
+            <br/>
+            <p:dataTable value="#{userController.users}"
+                         rowIndexVar="counter"
+                         var="item">
+                <p:column headerText="No." style="width : 5%">
+                    #{counter + 1}
+                </p:column>
+
+                <p:column headerText="name">
+                    #{item.name}
+                </p:column>
+
+                <p:column headerText="email">
+                    #{item.email}
+                </p:column>
+
+                <p:column headerText="phone">
+                    #{item.phone}
+                </p:column>
+
+                <p:column headerText="action" style="width: 10%;">
+                    <p:commandButton value="edit"
+                                     oncomplete="editWidgetDialog.show();"
+                                     update=":editUserDialogForm"
+                                     actionListener="#{userController.onSelectUser()}">
+                        <f:param name="userId" value="#{item.id}"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="delete"
+                                     oncomplete="deleteWidgetDialog.show();"
+                                     update=":deleteUserDialogForm"
+                                     actionListener="#{userController.onSelectUser()}">
+                        <f:param name="userId" value="#{item.id}"/>
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+
+        <p:dialog id="addUserDialog"
+                  header="add user"
+                  width="500"
+                  modal="true"
+                  draggable="false"
+                  resizable="false"
+                  widgetVar="addWidgetDialog"> 
+            <h:form id="addUserDialogForm">
+                <h:panelGrid columns="2">
+                    <h:outputText value="name"/>
+                    <p:inputText value="#{userController.user.name}"/>
+
+                    <h:outputText value="email"/>
+                    <p:inputText value="#{userController.user.email}"/>
+
+                    <h:outputText value="phone"/>
+                    <p:inputText value="#{userController.user.phone}"/>
+                </h:panelGrid>
+                <br/>
+                <br/>
+                <p:commandButton value="save"
+                                 update=":userForm, :notification"
+                                 actionListener="#{userController.onSave()}"
+                                 oncomplete="addWidgetDialog.hide();"/>
+                <p:spacer width="10"/>
+                <p:commandButton value="cancel"
+                                 type="button"
+                                 onclick="addWidgetDialog.hide();"/>
+            </h:form>
+        </p:dialog>
+
+
+        <p:dialog id="editUserDialog"
+                  header="edit user"
+                  width="500"
+                  modal="true"
+                  draggable="false"
+                  resizable="false"
+                  widgetVar="editWidgetDialog"> 
+            <h:form id="editUserDialogForm">
+                <h:panelGrid columns="2">
+                    <h:outputText value="name"/>
+                    <p:inputText value="#{userController.user.name}"/>
+
+                    <h:outputText value="email"/>
+                    <p:inputText value="#{userController.user.email}"/>
+
+                    <h:outputText value="phone"/>
+                    <p:inputText value="#{userController.user.phone}"/>
+                </h:panelGrid>
+                <br/>
+                <br/>
+                <p:commandButton value="save"
+                                 update=":userForm, :notification"
+                                 oncomplete="editWidgetDialog.hide();"/>
+                <p:spacer width="10"/>
+                <p:commandButton value="cancel"
+                                 type="button"
+                                 onclick="editWidgetDialog.hide();"/>
+            </h:form>
+        </p:dialog>
+
+
+        <p:dialog id="deleteUserDialog"
+                  header="delete user"
+                  width="500"
+                  modal="true"
+                  draggable="false"
+                  resizable="false"
+                  widgetVar="deleteWidgetDialog"> 
+            <h:form id="deleteUserDialogForm">
+                <h:outputText value="#{userController.user.name}"/>
+                <br/>
+                <br/>
+                <p:commandButton value="delete"
+                                 update=":userForm, :notification"
+                                 actionListener="#{userController.onDelete()}"
+                                 oncomplete="deleteWidgetDialog.hide();"/>
+                <p:spacer width="10"/>
+                <p:commandButton value="cancel"
+                                 type="button"
+                                 onclick="deleteWidgetDialog.hide();"/>
+            </h:form>
+        </p:dialog>
+    </h:body>
+</html>
+
