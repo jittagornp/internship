@@ -10,6 +10,8 @@ import com.blogspot.na5cent.orm.util.JSFSpringUtils;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -24,6 +26,8 @@ import javax.faces.context.FacesContext;
 @SessionScoped
 public class UserController implements Serializable {
 
+    private static final Logger LOG = Logger.getLogger(UserController.class.getName());
+
     private List<User> users;
     private User user;
 
@@ -33,8 +37,8 @@ public class UserController implements Serializable {
     public void postContruct() {
 
     }
-    
-    public void reset(){
+
+    public void reset() {
         users = userService.findAll();
     }
 
@@ -67,6 +71,7 @@ public class UserController implements Serializable {
             user = userService.save(user);
             showMessage(FacesMessage.SEVERITY_INFO, "save user", "success");
         } catch (Exception ex) {
+            LOG.log(Level.INFO, ex.getMessage(), ex);
             showMessage(FacesMessage.SEVERITY_ERROR, "save user", "fail");
         }
     }
