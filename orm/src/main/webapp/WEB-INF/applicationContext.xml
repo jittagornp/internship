@@ -15,10 +15,9 @@
                            http://www.springframework.org/schema/jee/spring-jee-3.2.xsd
                            http://www.springframework.org/schema/context
                            http://www.springframework.org/schema/context/spring-context-3.2.xsd">
-    <!-- เพื่อให้ใช้ annotation ของ spring ได้-->
+
     <context:annotation-config />
-     
-    <!-- เพื่อให้ spring framework เริ่ม scan code เพื่ออ่านข้อมูลตั้งแต่ com.blogspot.na5cent -->
+
     <context:component-scan base-package="com.blogspot.na5cent" />
 
 </beans>

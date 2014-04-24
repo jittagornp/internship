@@ -3,7 +3,7 @@
   <persistence-unit name="orm_pu" transaction-type="JTA">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <jta-data-source>jdbc/orm</jta-data-source>
-    <class>com.blogspot.na5cent.orm.User</class>
+    <class>com.blogspot.na5cent.orm.model.User</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <!--
