@@ -6,7 +6,7 @@
 
 package com.blogspot.na5cent.orm.repository;
 
-import com.blogspot.na5cent.orm.User;
+import com.blogspot.na5cent.orm.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

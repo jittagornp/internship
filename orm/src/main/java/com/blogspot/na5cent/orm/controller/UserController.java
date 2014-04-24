@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.blogspot.na5cent.orm;
+package com.blogspot.na5cent.orm.controller;
 
+import com.blogspot.na5cent.orm.model.User;
 import com.blogspot.na5cent.orm.service.UserService;
 import com.blogspot.na5cent.orm.util.JSFSpringUtils;
 import java.io.Serializable;

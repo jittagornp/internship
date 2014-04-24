@@ -6,7 +6,7 @@
 
 package com.blogspot.na5cent.orm.service;
 
-import com.blogspot.na5cent.orm.User;
+import com.blogspot.na5cent.orm.model.User;
 import java.util.List;
 
 /**
