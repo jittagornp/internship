@@ -11,10 +11,19 @@
                 font-size: 10pt;
             }
         </style>
+
+
+        <script type="text/javascript" src="PrimefacesDialog.js">
+        </script>
+        <script type="text/javascript">
+            PrimefacesDialog.on('show', function(){
+                
+            });
+        </script>
     </h:head>
     <h:body>
         <p:growl id="notification" showDetail="true" showSummary="true"/>
-        
+
         <h:form id="userForm">
             <p:commandButton value="add User"
                              update=":addUserDialogForm"
