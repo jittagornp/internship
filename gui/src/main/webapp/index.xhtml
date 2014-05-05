@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/resources/stylesheet/css/myLess.css"/>
+        <ui:remove>
+            <link rel="stylesheet/less" href="#{facesContext.externalContext.requestContextPath}/resources/stylesheet/less/myLess.less"/>
+            <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/javascript/org/lesscss/less.js"/>
+        </ui:remove>
+
+        <style type="text/css">
+            #gtToolbar{
+                position: fixed;
+                top : 0;
+                left: 0;
+                right: 0;
+                height: 40px;
+                background-color: red;
+            }
+
+            #gtSidebar{
+                position: fixed;
+                top : 40px;
+                left: 0;
+                width: 220px;
+                bottom: 0;
+                background-color: yellow;
+            }
+
+            #gtCenter{
+                position: fixed;
+                top : 40px;
+                left: 220px;
+                right: 0;
+                bottom: 0;
+                min-width: 780px;
+                background-color: green;
+                overflow: auto;
+            }
+
+            #gtSidebarToggle{
+                height: 40px;
+                width: 40px;
+                background: #000;
+            }
+
+            #gtSidebarToggle:hover{
+                cursor: pointer;
+            }
+        </style>
+        <script type="text/javascript">
+            (function($) {
+                $(function() {
+                    var $sidebar = $('#gtSidebar');
+                    var $center = $('#gtCenter');
+                    var SPEED_ANIMATE = 300;
+
+                    $('#gtSidebarToggle').on('click', function() {
+                        $sidebar.hasClass('collapse') ? slide($sidebar.width(), function() {
+                            $sidebar.removeClass('collapse');
+                        }) : slide(0, function() {
+                            $sidebar.addClass('collapse');
+                        });
+                    });
+                    
+                    function slide(width, callback) {
+                        $sidebar.animate({
+                            marginLeft: -$sidebar.width() + width
+                        }, SPEED_ANIMATE, callback);
+
+                        $center.animate({
+                            left: width
+                        }, SPEED_ANIMATE);
+                    }
+                });
+            })(jQuery);
+        </script>
+    </h:head>
+    <h:body>
+        <div id="gtToolbar">
+            <div id="gtSidebarToggle"></div>
+        </div>
+        <div id="gtSidebar"></div>
+        <div id="gtCenter">
+            <div style="height: 2000px; width: 2000px;"></div>
+        </div>
+        <p:commandLink/>
+    </h:body>
+</html>
+
